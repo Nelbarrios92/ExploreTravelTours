@@ -1,23 +1,19 @@
 <!--
 Sync Impact Report
-- Version change: (template placeholders) → 1.0.0
+- Version change: 1.0.0 → 1.1.0
 - Modified principles:
-  - [PRINCIPLE_1_NAME] → I. Sitio estático de conversión
-  - [PRINCIPLE_2_NAME] → II. Español y SEO de agencia
-  - [PRINCIPLE_3_NAME] → III. WhatsApp como canal único de reserva
-  - [PRINCIPLE_4_NAME] → IV. Identidad visual y experiencia de marca
-  - [PRINCIPLE_5_NAME] → V. Simplicidad vanilla (NON-NEGOTIABLE)
-- Added sections:
-  - Alcance comercial y contenido
-  - Calidad, accesibilidad y verificación
-  - Governance (filled from template)
-- Removed sections: none (template structure preserved)
+  - IV. Identidad visual y experiencia de marca → permite una cara de display
+    contemporánea (`--font-display`, Fraunces) solo en el identificador de marca
+    del Hero; Montserrat (UI) y Playfair Display (títulos de sección) se conservan
+- Added sections: none
+- Removed sections: none
 - Templates requiring updates:
-  - .specify/templates/plan-template.md → ✅ no structural change (Constitution Check is filled at plan time)
-  - .specify/templates/spec-template.md → ✅ no structural change (generic FR/user-story slots remain valid)
-  - .specify/templates/tasks-template.md → ✅ no structural change (paths resolved per feature against this constitution)
-  - .specify/templates/commands/*.md → N/A (commands live as Cursor skills under .cursor/skills/)
+  - .specify/templates/plan-template.md → ✅ no structural change
+  - .specify/templates/spec-template.md → ✅ no structural change
+  - .specify/templates/tasks-template.md → ✅ no structural change
 - Follow-up TODOs: none
+- Razón de negocio: spec 002 (clarificación B) — el nombre en el Hero no debe
+  resolverse con Playfair (riesgo ornamental/bodas) ni solo con tamaño
 -->
 
 # Explore Travel Tours Constitution
@@ -54,16 +50,21 @@ hoy el 100% de las reservas se inicia por WhatsApp; un formulario local romperí
 el modelo operativo.
 
 ### IV. Identidad visual y experiencia de marca
-La identidad MUST usar las fuentes Montserrat (UI) y Playfair Display (títulos
-de sección), las variables CSS de marca (`--brand-blue: #1e3a8a`,
+La identidad MUST usar las fuentes Montserrat (UI y titular principal del Hero),
+Playfair Display (títulos de sección fuera del identificador de marca del Hero)
+y, **solo** para el identificador “Explore Travel Tours” en el Hero, una cara de
+display contemporánea expuesta como `--font-display` (Fraunces en la feature
+`002-hero-brand-typography`). MUST NOT aplicar `--font-display` a navbar, H1 del
+Hero, subtítulo, cards, testimonios, FAQ ni pie. MUST NOT sustituir Montserrat
+ni Playfair en el resto del sitio. Paleta (`--brand-blue: #1e3a8a`,
 `--brand-orange: #ea580c`, `--whatsapp-green: #25D366`, `--primary: #1A1A1A`) y
-el logo `logo.jpeg`. El hero MUST ocupar el viewport completo con overlay
-legible sobre la fotografía. La navegación MUST ser fija, transparente al
-inicio y sólida al hacer scroll. Animaciones de entrada MUST usar
+logo `logo.jpeg` se conservan. El hero MUST ocupar el viewport completo con
+overlay legible sobre la fotografía. La navegación MUST ser fija, transparente
+al inicio y sólida al hacer scroll. Animaciones de entrada MUST usar
 `.fade-in-scroll`. Breakpoints MUST cubrir `1024px` y `768px`, incluido el menú
 móvil. Instagram autoritativo: `https://www.instagram.com/exploretraveltoursco`.
-Rationale: la marca se percibe como turismo de lujo en el Caribe; desviaciones
-de color, tipografía o layout diluyen esa percepción.
+Rationale: el primer pantallazo necesita carácter de marca contemporáneo sin
+estética ornamental; el resto del sistema tipográfico permanece estable.
 
 ### V. Simplicidad vanilla (NON-NEGOTIABLE)
 El front MUST permanecer en HTML, CSS y JavaScript vanilla, sin bundler, npm,
@@ -133,4 +134,4 @@ constitución; `/speckit-analyze` trata un incumplimiento de MUST como
 CRITICAL. Complejidad extra MUST registrarse en Complexity Tracking. El
 guidance operativo de Speckit está en `.cursor/skills/` y `.specify/`.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-04 | **Last Amended**: 2026-09-04
+**Version**: 1.1.0 | **Ratified**: 2026-09-04 | **Last Amended**: 2026-09-11
