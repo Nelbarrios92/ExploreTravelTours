@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -31,5 +31,5 @@
 
 ## Notes
 
-- 2026-09-11: Q1 resuelta (chip **Alojamientos**). Sigue abierto FR-005: falta pegar el listado de ofertas. No avanzar a `/speckit-plan` hasta esa lista.
+- 2026-09-12: Q2 cerrada con Apartamento Laguito y Apartamento Torices. Checklist 16/16. Lista para `/speckit-plan`. Las fotos las sube el negocio por inmueble.
 - WhatsApp y el patrón de card se asumen iguales al catálogo actual (sin nombrar stack en criterios de éxito).

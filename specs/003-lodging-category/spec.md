@@ -13,7 +13,11 @@
 ### Session 2026-09-11
 
 - Q: ¿Etiqueta del chip de filtro? → A: **Alojamientos** (una sola categoría; cubre apartamentos y otros hospedajes).
-- Q: ¿Qué ofertas publicar? → A: Lista suministrada por el negocio (nombre, zona, 1–2 frases, foto si existe). El detalle de cada inmueble aún no está en esta spec; sin esa lista no se implementan cards inventadas.
+- Q: ¿Qué ofertas publicar? → A: Lista suministrada por el negocio (nombre, zona, 1–2 frases, foto si existe).
+
+### Session 2026-09-12
+
+- Q: ¿Listado concreto de alojamientos? → A: Dos ofertas: **Apartamento Laguito** (El Laguito, Cartagena) y **Apartamento Torices** (Torices, Cartagena). Fotos: las que suba el negocio para cada inmueble; no reutilizar fotos de tours.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -28,7 +32,7 @@ Un visitante en la homepage llega a Experiencias para ver qué ofrece Explore Tr
 **Acceptance Scenarios**:
 
 1. **Given** un visitante en la sección Experiencias, **When** mira los filtros, **Then** ve un chip con la etiqueta exacta **Alojamientos** además de Todas, City tours, Traslados, Barcos e islas y Destinos Caribe.
-2. **Given** el chip de alojamientos, **When** el visitante lo activa, **Then** el catálogo muestra únicamente las cards de esa categoría y al menos una oferta real (nunca “0 experiencias” ni “Próximamente”).
+2. **Given** el chip Alojamientos, **When** el visitante lo activa, **Then** ve exactamente las cards **Apartamento Laguito** y **Apartamento Torices** (y ninguna experiencia de otra categoría); nunca “0 experiencias” ni “Próximamente”.
 3. **Given** el filtro Todas, **When** el visitante lo activa, **Then** ve las experiencias ya publicadas y las nuevas cards de alojamiento en el mismo listado.
 4. **Given** una card de alojamiento, **When** el visitante la compara con una card de city tour, **Then** comparte el mismo estilo: imagen, título, texto breve y botón de reserva por WhatsApp, sin un layout especial de “inmueble”.
 
@@ -68,7 +72,8 @@ Un visitante que ya conocía Experiencias no percibe un rediseño de la sección
 
 - Categoría vacía: MUST NOT publicarse el chip si no hay al menos una oferta real de alojamiento.
 - Filtro activo de alojamientos: no mostrar cards de otras categorías.
-- Imagen ausente: MUST NOT usar la foto de otro destino/tour como si fuera ese alojamiento.
+- Imagen ausente o pendiente de subida: MUST NOT usar la foto de un tour u otro destino como si fuera ese apartamento. Cada card MUST usar la imagen que el negocio asigne a ese inmueble.
+- Capacidad, amenidades y zonas: MUST limitarse a lo indicado por el negocio para cada oferta (p. ej. Torices: 5 personas y el equipamiento descrito; Laguito: 2 habitaciones y ubicación). MUST NOT añadir tarifas ni check-in inventados.
 - Nombres o precios inventados: MUST NOT publicar tarifas, cupos, amenidades de lujo no confirmadas ni edificios ficticios.
 - “Todas”: incluye alojamientos y el resto; el recuento visible nunca es cero.
 - Móvil: chips y cards usables; el menú no tapa el catálogo.
@@ -81,7 +86,12 @@ Un visitante que ya conocía Experiencias no percibe un rediseño de la sección
 - **FR-002**: La etiqueta visible del chip MUST ser exactamente `Alojamientos`. MUST NOT usar un segundo chip “Apartamentos”.
 - **FR-003**: Cada oferta de esta categoría MUST presentarse como card del mismo tipo que las experiencias actuales: imagen, título, descripción breve y CTA de reserva por WhatsApp.
 - **FR-004**: El visitante MUST poder filtrar por Alojamientos y por Todas; el filtro MUST ocultar las cards que no correspondan, sin dejar la grilla vacía para una categoría publicada.
-- **FR-005**: MUST existir al menos una card de alojamiento real. El conjunto de ofertas MUST ser únicamente la lista que el negocio envíe (nombre, zona, 1–2 frases e imagen si la aporta). MUST NOT inventar inmuebles. [NEEDS CLARIFICATION: pegar aquí el listado concreto (nombre, zona, descripción breve, foto o indicación de imagen)].
+- **FR-005**: El catálogo MUST publicar exactamente estas dos ofertas de Alojamientos (ni más ni menos en este alcance), con el copy autorizado:
+
+  1. **Apartamento Laguito** — zona El Laguito, Cartagena. Descripción: apartamento cómodo y acogedor de 2 habitaciones, en El Laguito, cerca de la playa, restaurantes, supermercados y principales atractivos turísticos de Cartagena; ideal para familias, parejas o grupos que buscan comodidad y una excelente ubicación. Imagen: la que suba el negocio para este inmueble.
+  2. **Apartamento Torices** — zona Torices, Cartagena. Descripción: apartamento de 2 habitaciones con capacidad para 5 personas, con camas dobles, aire acondicionado, cocina equipada, comedor, TV, nevera y piscina; cerca del Centro Histórico y otros sitios de interés de Cartagena. Imagen: la que suba el negocio para este inmueble.
+
+  MUST NOT añadir otros inmuebles ni inventar precios.
 - **FR-006**: El CTA de cada card de alojamiento MUST abrir WhatsApp al número comercial de Explore con un mensaje en español que identifique esa oferta. MUST NOT añadir checkout ni pasarela.
 - **FR-007**: Las categorías y cards ya publicadas (city tours, traslados, barcos/islas, destinos Caribe) MUST conservarse. MUST NOT rediseñar el sistema de cards ni crear una grilla paralela.
 - **FR-008**: MUST NOT mostrar “Próximamente”, recuentos en cero, ni una sección de alojamientos fuera de Experiencias en este alcance.
@@ -91,14 +101,22 @@ Un visitante que ya conocía Experiencias no percibe un rediseño de la sección
 ### Key Entities
 
 - **Categoría Alojamientos**: Agrupación nueva del catálogo. Un chip; al menos una oferta real; mismo mecanismo de filtro que el resto.
-- **Oferta de alojamiento**: Card vendible (apartamento u hospedaje). Atributos: título, descripción breve, imagen con texto alternativo descriptivo, categoría de alojamiento, CTA WhatsApp.
+- **Oferta de alojamiento**: Card vendible. En este alcance, exactamente dos:
+
+  | Título | Zona | Notas de contenido |
+  |--------|------|---------------------|
+  | Apartamento Laguito | El Laguito, Cartagena | 2 habitaciones; playa y servicios cercanos; familias, parejas o grupos |
+  | Apartamento Torices | Torices, Cartagena | 2 habitaciones; 5 personas; equipamiento y piscina indicados por el negocio; cerca del Centro Histórico |
+
+  Atributos de card: título, descripción breve (la autorizada), imagen propia con `alt` descriptivo, categoría Alojamientos, CTA WhatsApp.
 - **Card de experiencia (tipo existente)**: Plantilla visual a reutilizar (no una plantilla nueva de ficha inmobiliaria).
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: Un visitante nuevo localiza el chip **Alojamientos** y ve al menos una oferta en menos de 30 segundos desde que llega a Experiencias.
+- **SC-001**: Un visitante nuevo localiza el chip **Alojamientos** y ve las dos ofertas (Laguito y Torices) en menos de 30 segundos desde que llega a Experiencias.
+- **SC-007**: Un revisor confirma que no hay una tercera card de alojamiento no listada en FR-005 y que el copy visible coincide con el autorizado (sin precios inventados).
 - **SC-002**: El 100% de las cards de alojamiento usan el mismo tipo de tarjeta (imagen + título + texto + CTA WhatsApp) que las experiencias actuales; un revisor no identifica un diseño de card distinto.
 - **SC-003**: Con el filtro de alojamientos activo, el 100% de las cards visibles pertenecen a esa categoría; con Todas, alojamientos y ofertas previas coexisten.
 - **SC-004**: El 100% de los CTA de alojamiento inician WhatsApp con el contexto de esa oferta, sin pago en el sitio.
@@ -108,7 +126,8 @@ Un visitante que ya conocía Experiencias no percibe un rediseño de la sección
 ## Assumptions
 
 - Una sola categoría **Alojamientos** cubre apartamentos y otros hospedajes (no dos chips).
-- El inventario de cards es la lista que envíe el negocio; hasta recibirla, la spec no autoriza nombres de inmuebles.
+- El inventario de este alcance es **Apartamento Laguito** y **Apartamento Torices**. Cualquier otro inmueble queda fuera hasta una nueva instrucción.
+- Las fotografías las aporta el negocio (una por apartamento). La implementación no sustituye con fotos de city tours u otros destinos.
 - Explore ya ofrece o quiere ofrecer hospedaje; esta instrucción de negocio autoriza **añadir el tipo de oferta** al catálogo, no inventar inmuebles.
 - El CTA de las cards nuevas sigue el mismo patrón de mensaje que el catálogo actual (interés/reserva por nombre de la oferta).
 - No hay motor de disponibilidad: el valor es descubrir y consultar por WhatsApp.

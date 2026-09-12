@@ -536,22 +536,29 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.ig-btn {
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
     transition: var(--transition);
 }
 
-.ig-btn i {
+.social-link i,
+.social-link svg {
     font-size: 24px;
+    width: 24px;
+    height: 24px;
 }
 
-.ig-btn:hover {
+.social-link:hover {
     color: #E1306C;
     transform: translateY(-2px);
 }
@@ -933,18 +940,25 @@ body {
     color: rgba(255, 255, 255, 0.8);
 }
 
-.footer-ig-link {
-    color: var(--text-white);
-    text-decoration: none;
-    font-size: 15px;
-    display: inline-flex;
+.footer-social {
+    display: flex;
     align-items: center;
-    gap: 5px;
-    transition: var(--transition);
+    gap: 20px;
 }
 
-.footer-ig-link:hover {
+.footer-social .social-link {
+    color: var(--text-white);
+}
+
+.footer-social .social-link:hover {
     color: #E1306C;
+}
+
+.footer-social .social-link i,
+.footer-social .social-link svg {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
 }
 
 /* RESPONSIVE */
