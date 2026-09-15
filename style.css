@@ -167,7 +167,7 @@ body {
     height: 100vh;
     min-height: 100vh;
     width: 100%;
-    background: url('assets/fondoexploretours.png') center/cover no-repeat;
+    background: url('assets/fondoexploretours.png') 78% center / cover no-repeat;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -220,7 +220,7 @@ body {
 
 .hero-brand {
     font-family: var(--font-display);
-    font-size: clamp(6.4rem, 3.5vw, 2.8rem);
+    font-size: clamp(4.5rem, 3.5vw, 2.8rem);
     font-weight: 400;
     color: var(--text-white);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
@@ -249,46 +249,83 @@ body {
 .hero-footer {
     width: 100%;
     flex-shrink: 0;
-    padding-bottom: 28px;
+    padding-bottom: 0;
+}
+
+.hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
 }
 
 /* Hero search — pie del hero, compacto */
 .hero-search {
     width: 100%;
-    background: rgba(255, 255, 255, 0.97);
-    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 18px;
     padding: 12px 14px 14px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
     margin-bottom: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.search-accordion-toggle {
+    display: none;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid rgba(30, 58, 138, 0.14);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    color: var(--brand-blue);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.875rem;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(30, 58, 138, 0.08);
+}
+
+.search-accordion-toggle i {
+    font-size: 1.25rem;
+    line-height: 1;
 }
 
 .search-tabs {
     display: flex;
     gap: 0;
-    margin-bottom: 10px;
-    background: #f1f5f9;
-    border-radius: 10px;
-    padding: 3px;
+    margin-bottom: 12px;
+    background: linear-gradient(180deg, #f8fafc, #eef2ff);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 4px;
 }
 
 .search-tab {
     flex: 1 1 0;
-    min-height: 40px;
+    min-height: 42px;
     border: none;
     background: transparent;
     color: #64748b;
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.875rem;
     padding: 8px 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: var(--transition);
 }
 
 .search-tab.is-active {
-    background: var(--brand-blue);
+    background: linear-gradient(135deg, var(--brand-blue), #2c5bd1);
     color: #fff;
+    box-shadow: 0 8px 18px rgba(30, 58, 138, 0.18);
 }
 
 .search-panel {
@@ -316,7 +353,7 @@ body {
     flex: 1;
     gap: 0;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #475569;
     cursor: pointer;
     background: #f8fafc;
@@ -324,6 +361,7 @@ body {
     border-radius: 999px;
     min-height: 40px;
     padding: 8px 16px;
+    transition: var(--transition);
 }
 
 .trip-option input {
@@ -336,9 +374,10 @@ body {
 
 .trip-option:has(input:checked),
 .trip-option.is-selected {
-    background: var(--brand-blue);
+    background: linear-gradient(135deg, var(--brand-blue), #2b4ec5);
     border-color: var(--brand-blue);
     color: #fff;
+    box-shadow: 0 8px 16px rgba(30, 58, 138, 0.14);
 }
 
 .search-fields {
@@ -362,7 +401,7 @@ body {
 .field-label {
     font-size: 0.875rem;
     line-height: 1.2;
-    font-weight: 600;
+    font-weight: 700;
     color: #334155;
 }
 
@@ -373,18 +412,20 @@ body {
     font-weight: 500;
     color: var(--primary);
     border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 12px 14px;
     background: #fff;
     width: 100%;
     height: 50px;
     box-sizing: border-box;
+    transition: var(--transition);
 }
 
 .field input:focus,
 .field select:focus {
-    outline: 2px solid rgba(30, 58, 138, 0.22);
+    outline: 2px solid rgba(30, 58, 138, 0.18);
     border-color: var(--brand-blue);
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.05);
 }
 
 .swap-places {
@@ -394,17 +435,19 @@ body {
     width: 44px;
     height: 50px;
     margin: 0 auto;
-    border: 1px solid #e2e8f0;
-    background: #fff;
+    border: 1px solid rgba(30, 58, 138, 0.16);
+    background: linear-gradient(180deg, #ffffff, #f8fbff);
     color: var(--brand-blue);
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     align-self: end;
     font-size: 1.25rem;
+    transition: var(--transition);
 }
 
 .swap-places:hover {
     background: #eff6ff;
+    transform: translateY(-1px);
 }
 
 .search-submit {
@@ -412,20 +455,23 @@ body {
     min-height: 48px;
     height: 50px;
     border: none;
-    background: var(--brand-orange);
+    background: linear-gradient(135deg, var(--brand-orange), #f97316);
     color: #fff;
     font-family: var(--font-sans);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.9375rem;
     padding: 0 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     align-self: end;
+    box-shadow: 0 14px 24px rgba(234, 88, 12, 0.22);
 }
 
 .search-submit:hover {
-    background: #c2410c;
+    background: linear-gradient(135deg, #d9480f, var(--brand-orange));
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(234, 88, 12, 0.28);
 }
 
 .field-origin { grid-area: origin; }
@@ -441,7 +487,6 @@ body {
     grid-template-columns: 1fr;
     grid-template-areas:
         "origin"
-        "swap"
         "dest"
         "depart"
         "time"
@@ -452,7 +497,6 @@ body {
 .search-fields-transport.is-round-trip {
     grid-template-areas:
         "origin"
-        "swap"
         "dest"
         "depart"
         "ret"
@@ -500,12 +544,164 @@ body {
     cursor: pointer;
 }
 
+/* 010: compact compose searcher on phone; hide swap without a grid hole */
+@media (max-width: 767px) {
+    /* 014: accordion may grow the hero only on phone */
+    .hero-section {
+        padding-top: 90px;
+        padding-bottom: 0;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* 013/015: message top; air; accordion; Explorar */
+    .hero-content {
+        display: contents;
+    }
+
+    .hero-message {
+        order: 1;
+        flex-shrink: 0;
+        width: 100%;
+    }
+
+    .hero-footer {
+        order: 2;
+        margin-top: auto;
+        flex-shrink: 0;
+        width: 100%;
+    }
+
+    .hero-subtitle {
+        margin-bottom: 0;
+    }
+
+    .hero-actions {
+        order: 3;
+        margin-top: 0;
+        flex-shrink: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-actions .lets-go-btn {
+        position: static;
+    }
+
+    .hero-social {
+        gap: 8px;
+    }
+
+    #hero-search:not(.is-quoted) {
+        padding: 8px 10px;
+    }
+
+    #hero-search:not(.is-quoted) .search-tabs {
+        margin-bottom: 8px;
+        padding: 2px;
+    }
+
+    #hero-search:not(.is-quoted) .search-tab {
+        min-height: 36px;
+        font-size: 0.8125rem;
+        padding: 6px 10px;
+    }
+
+    #hero-search:not(.is-quoted) .search-panel {
+        gap: 8px;
+    }
+
+    #hero-search:not(.is-quoted) .trip-option {
+        min-height: 36px;
+        font-size: 0.8125rem;
+        padding: 6px 12px;
+    }
+
+    #hero-search:not(.is-quoted) .search-fields {
+        gap: 8px;
+        grid-template-columns: 1fr;
+    }
+
+    #hero-search:not(.is-quoted) .search-fields-hourly {
+        grid-template-columns: 1fr;
+    }
+
+    #hero-search:not(.is-quoted) .field {
+        gap: 4px;
+    }
+
+    #hero-search:not(.is-quoted) .field-label {
+        font-size: 0.8125rem;
+    }
+
+    #hero-search:not(.is-quoted) .field input,
+    #hero-search:not(.is-quoted) .field select {
+        height: 44px;
+        padding: 8px 12px;
+        font-size: 0.875rem;
+    }
+
+    #hero-search:not(.is-quoted) .search-submit {
+        width: 100%;
+        height: 50px;
+        min-height: 48px;
+        font-size: 0.9375rem;
+    }
+
+    .swap-places {
+        display: none;
+    }
+
+    #hero-search:not(.is-quoted) .search-accordion-toggle {
+        display: flex;
+    }
+
+    #hero-search:not(.is-collapsed):not(.is-quoted) .search-accordion-toggle {
+        margin-bottom: 8px;
+    }
+
+    #hero-search:not(.is-quoted) .search-accordion-toggle i {
+        transform: rotate(0deg);
+        transition: transform 320ms ease;
+    }
+
+    #hero-search:not(.is-collapsed):not(.is-quoted) .search-accordion-toggle i {
+        transform: rotate(180deg);
+    }
+
+    #hero-search:not(.is-quoted) .search-composer {
+        display: block;
+        overflow: hidden;
+        transition: height 320ms ease;
+    }
+
+    #hero-search:not(.is-quoted) .search-composer-body {
+        overflow: hidden;
+        min-height: 0;
+    }
+
+    #hero-search.is-collapsed:not(.is-quoted) .search-composer {
+        height: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #hero-search .search-composer,
+    #hero-search .search-accordion-toggle i {
+        transition: none;
+    }
+}
+
 /* Quote summary — moderate compact (009); not booking-bar 50px */
 .quote-summary {
     margin-bottom: 0;
-    padding: 0;
-    background: transparent;
-    border: none;
+    padding: 12px;
+    background: linear-gradient(180deg, rgba(239, 246, 255, 0.96), rgba(255, 255, 255, 0.98));
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
 .quote-summary[hidden] {
@@ -515,7 +711,7 @@ body {
 .quote-summary h2 {
     font-family: var(--font-serif);
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--brand-blue);
     margin-bottom: 8px;
 }
@@ -523,19 +719,22 @@ body {
 .quote-lines {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 4px 12px;
-    margin-bottom: 10px;
+    gap: 6px 12px;
+    margin-bottom: 12px;
     font-size: 0.8125rem;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
 }
 
 .quote-lines dt {
-    font-weight: 600;
+    font-weight: 700;
     color: #334155;
 }
 
 .quote-lines dd {
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--primary);
 }
 
@@ -545,21 +744,24 @@ body {
     justify-content: center;
     gap: 6px;
     width: 100%;
-    height: 42px;
+    height: 44px;
     box-sizing: border-box;
-    background: var(--whatsapp-green);
+    background: linear-gradient(135deg, var(--whatsapp-green), #1ebe57);
     color: #fff;
     text-decoration: none;
     font-family: var(--font-sans);
-    font-weight: 700;
+    font-weight: 800;
     padding: 0 14px;
     border-radius: 10px;
     font-size: 0.8125rem;
-    transition: var(--transition);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow: 0 12px 20px rgba(37, 211, 102, 0.2);
 }
 
 .quote-wa-btn:hover {
-    background: #1ebe57;
+    background: linear-gradient(135deg, #1ebe57, var(--whatsapp-green));
+    transform: translateY(-1px);
+    box-shadow: 0 14px 22px rgba(37, 211, 102, 0.24);
 }
 
 .quote-modify {
@@ -569,23 +771,27 @@ body {
     width: 100%;
     height: 42px;
     min-height: 42px;
-    margin-top: 6px;
+    margin-top: 8px;
     padding: 0 14px;
     box-sizing: border-box;
-    border: 1px solid var(--brand-blue);
+    border: 1px solid rgba(30, 58, 138, 0.24);
     border-radius: 10px;
     background: #fff;
     color: var(--brand-blue);
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.8125rem;
     cursor: pointer;
+    transition: var(--transition);
 }
 
 .quote-modify:hover {
     background: #eff6ff;
+    transform: translateY(-1px);
 }
 
+#hero-search.is-quoted .search-accordion-toggle,
+#hero-search.is-quoted .search-composer,
 #hero-search.is-quoted .search-tabs,
 #hero-search.is-quoted .search-panel,
 #hero-search.is-quoted .search-errors,
@@ -677,7 +883,7 @@ body {
     font-size: 15px;
     transition: var(--transition);
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .lets-go-btn:hover {
@@ -1182,8 +1388,6 @@ body {
     .hero-section {
         padding-top: 90px;
         padding-bottom: 0;
-        height: auto;
-        min-height: 100vh;
     }
 
     .hero-content {
@@ -1245,6 +1449,33 @@ body {
 }
 
 @media (min-width: 768px) {
+    /* 014: first screen is viewport; searcher always open in the footer */
+    .hero-section {
+        height: 100vh;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    .hero-section:has(#hero-search.is-quoted) {
+        height: auto;
+        overflow: visible;
+    }
+
+    .hero-footer {
+        padding-bottom: 0;
+    }
+
+    .search-accordion-toggle {
+        display: none;
+    }
+
+    #hero-search.is-collapsed:not(.is-quoted) .search-composer,
+    #hero-search:not(.is-quoted) .search-composer {
+        height: auto;
+        overflow: visible;
+        transition: none;
+    }
+
     .footer-content {
         flex-direction: row;
         justify-content: space-between;

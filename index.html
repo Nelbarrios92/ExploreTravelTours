@@ -99,28 +99,31 @@
         <div class="hero-overlay"></div>
         <div class="hero-layout">
             <div class="hero-content">
-                <p class="hero-brand">Explore Travel Tours</p>
-                <hr class="hero-brand-rule" aria-hidden="true">
-                <p class="hero-subtitle">Descubre las incomparables maravillas del Caribe colombiano. ¡Disfruta de aventuras inolvidables y momentos mágicos en nuestros destinos top!</p>
-                <a href="#experiences" class="lets-go-btn">Explorar servicios</a>
-
-                <div class="hero-social">
-                    <p>También puedes seguirnos en nuestras redes sociales</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/exploretraveltoursco" target="_blank"
-                            rel="noopener noreferrer" class="social-link" aria-label="Instagram"><i class="uil uil-instagram"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=61588995721227" target="_blank"
-                            rel="noopener noreferrer" class="social-link" aria-label="Facebook"><i class="uil uil-facebook"></i></a>
-                        <a href="https://www.tiktok.com/@exploretraveltours" target="_blank"
-                            rel="noopener noreferrer" class="social-link" aria-label="TikTok">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.71a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.14z"/></svg>
-                        </a>
+                <div class="hero-message">
+                    <p class="hero-brand">Transporte Turistico En Cartagena</p>
+                    <hr class="hero-brand-rule" aria-hidden="true">
+                    <p class="hero-subtitle">Descubre las incomparables maravillas del Caribe colombiano. ¡Disfruta de aventuras inolvidables y momentos mágicos en nuestros destinos top!</p>
+                </div>
+                <div class="hero-actions">
+                    <a href="#experiences" class="lets-go-btn">Explorar servicios</a>
+                    <div class="hero-social">
+                        <p>También puedes seguirnos en nuestras redes sociales</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/exploretraveltoursco" target="_blank"
+                                rel="noopener noreferrer" class="social-link" aria-label="Instagram"><i class="uil uil-instagram"></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=61588995721227" target="_blank"
+                                rel="noopener noreferrer" class="social-link" aria-label="Facebook"><i class="uil uil-facebook"></i></a>
+                            <a href="https://www.tiktok.com/@exploretraveltours" target="_blank"
+                                rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.71a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.14z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="hero-footer">
-                <div class="hero-search" id="hero-search">
+                <div class="hero-search is-collapsed" id="hero-search">
                     <div id="quote-summary" class="quote-summary" hidden>
                         <h2>Resumen de cotización</h2>
                         <dl class="quote-lines" id="quote-lines"></dl>
@@ -131,6 +134,14 @@
                         <div class="quote-related" id="quote-related" hidden></div>
                     </div>
 
+                    <button type="button" class="search-accordion-toggle" id="search-accordion-toggle"
+                        aria-expanded="false" aria-controls="search-composer">
+                        <span>Pedir cotización</span>
+                        <i class="uil uil-angle-down" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="search-composer" id="search-composer">
+                    <div class="search-composer-body">
                     <div class="search-tabs" role="tablist" aria-label="Tipo de búsqueda">
                         <button type="button" class="search-tab is-active" role="tab" id="tab-transporte"
                             aria-selected="true" aria-controls="panel-transporte" data-mode="transporte">Transporte</button>
@@ -231,10 +242,11 @@
                         </div>
                         <p class="search-errors" id="errors-hourly" hidden></p>
                     </form>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </section>
 
     <!-- Experiences Catalog -->

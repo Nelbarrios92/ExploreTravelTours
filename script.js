@@ -213,7 +213,61 @@ function initSearch() {
     const originInput = formTransporte.querySelector('input[name="origin"]');
     const destinationInput = formTransporte.querySelector('input[name="destination"]');
     const swapPlacesBtn = document.getElementById('swap-places');
+    const accordionBtn = document.getElementById('search-accordion-toggle');
     const minDate = todayLocalISO();
+
+    const setAccordionOpen = (open, instant) => {
+        if (!heroSearch || !accordionBtn) return;
+        const composer = document.getElementById('search-composer');
+        const phone = window.matchMedia('(max-width: 767px)').matches;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const animate = Boolean(composer) && phone && !reduce && !instant && !heroSearch.classList.contains('is-quoted');
+
+        accordionBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+        if (!animate) {
+            heroSearch.classList.toggle('is-collapsed', !open);
+            if (composer) {
+                composer.getAnimations().forEach((a) => a.cancel());
+                composer.style.height = '';
+            }
+            return;
+        }
+
+        composer.getAnimations().forEach((a) => a.cancel());
+        composer.style.overflow = 'hidden';
+
+        if (open) {
+            heroSearch.classList.remove('is-collapsed');
+            const to = composer.scrollHeight;
+            const anim = composer.animate(
+                [{ height: '0px' }, { height: `${to}px` }],
+                { duration: 320, easing: 'ease', fill: 'forwards' }
+            );
+            anim.onfinish = () => {
+                composer.style.height = 'auto';
+                anim.cancel();
+            };
+        } else {
+            const from = composer.scrollHeight;
+            const anim = composer.animate(
+                [{ height: `${from}px` }, { height: '0px' }],
+                { duration: 320, easing: 'ease', fill: 'forwards' }
+            );
+            anim.onfinish = () => {
+                heroSearch.classList.add('is-collapsed');
+                composer.style.height = '';
+                anim.cancel();
+            };
+        }
+    };
+
+    if (accordionBtn) {
+        accordionBtn.addEventListener('click', () => {
+            if (heroSearch.classList.contains('is-quoted')) return;
+            setAccordionOpen(heroSearch.classList.contains('is-collapsed'));
+        });
+    }
 
     formTransporte.querySelectorAll('input[type="date"]').forEach((input) => {
         input.min = minDate;
@@ -290,6 +344,7 @@ function initSearch() {
         quoteRelated.hidden = true;
         quoteRelated.innerHTML = '';
         if (heroSearch) heroSearch.classList.remove('is-quoted');
+        setAccordionOpen(true, true);
     };
 
     const relatedSuggestions = (textBlob) => {
