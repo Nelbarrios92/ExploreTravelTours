@@ -255,28 +255,32 @@ body {
 /* Hero search — pie del hero, compacto */
 .hero-search {
     width: 100%;
-    background: rgba(255, 255, 255, 0.96);
-    border-radius: 14px 14px 14px 14px;
-    padding: 6px 10px 8px;
-    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 16px;
+    padding: 12px 14px 14px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
     margin-bottom: 0;
 }
 
 .search-tabs {
     display: flex;
-    gap: 4px;
-    margin-bottom: 4px;
+    gap: 0;
+    margin-bottom: 10px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 3px;
 }
 
 .search-tab {
-    flex: 1;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
-    color: var(--brand-blue);
+    flex: 1 1 0;
+    min-height: 40px;
+    border: none;
+    background: transparent;
+    color: #64748b;
     font-family: var(--font-sans);
     font-weight: 600;
-    font-size: 0.7rem;
-    padding: 5px 8px;
+    font-size: 0.875rem;
+    padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
     transition: var(--transition);
@@ -284,8 +288,13 @@ body {
 
 .search-tab.is-active {
     background: var(--brand-blue);
-    border-color: var(--brand-blue);
     color: #fff;
+}
+
+.search-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .search-panel[hidden] {
@@ -294,75 +303,166 @@ body {
 
 .trip-type-row {
     display: flex;
-    gap: 6px;
-    margin-bottom: 4px;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
 }
 
 .trip-option {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--text-dark);
+    justify-content: center;
+    flex: 1;
+    gap: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #475569;
     cursor: pointer;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    min-height: 40px;
+    padding: 8px 16px;
+}
+
+.trip-option input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+}
+
+.trip-option:has(input:checked),
+.trip-option.is-selected {
+    background: var(--brand-blue);
+    border-color: var(--brand-blue);
+    color: #fff;
 }
 
 .search-fields {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-    margin-bottom: 6px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: end;
 }
 
-/* Floating label */
 .field {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
 }
 
 .field[hidden] {
     display: none !important;
 }
 
+.field-label {
+    font-size: 0.875rem;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #334155;
+}
+
 .field input,
 .field select {
     font-family: var(--font-sans);
-    font-size: 0.78rem;
+    font-size: 0.9375rem;
     font-weight: 500;
     color: var(--primary);
     border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    padding: 10px 6px 4px;
+    border-radius: 10px;
+    padding: 12px 14px;
     background: #fff;
     width: 100%;
-    height: 36px;
+    height: 50px;
+    box-sizing: border-box;
 }
 
 .field input:focus,
 .field select:focus {
-    outline: 2px solid rgba(30, 58, 138, 0.35);
+    outline: 2px solid rgba(30, 58, 138, 0.22);
     border-color: var(--brand-blue);
 }
 
-.field > span {
-    position: absolute;
-    left: 7px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: #94a3b8;
-    pointer-events: none;
-    transition: all 0.15s ease;
+.swap-places {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 50px;
+    margin: 0 auto;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: var(--brand-blue);
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: end;
+    font-size: 1.25rem;
 }
 
-.field input:focus ~ span,
-.field input:not(:placeholder-shown) ~ span,
-.field select:focus ~ span {
-    top: 5px;
-    transform: none;
-    font-size: 0.58rem;
-    color: var(--brand-blue);
+.swap-places:hover {
+    background: #eff6ff;
+}
+
+.search-submit {
+    width: 100%;
+    min-height: 48px;
+    height: 50px;
+    border: none;
+    background: var(--brand-orange);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    padding: 0 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    align-self: end;
+}
+
+.search-submit:hover {
+    background: #c2410c;
+}
+
+.field-origin { grid-area: origin; }
+.swap-places { grid-area: swap; }
+.field-dest { grid-area: dest; }
+.field-depart { grid-area: depart; }
+.field-return { grid-area: ret; }
+.field-time { grid-area: time; }
+.field-passengers { grid-area: pax; }
+.search-fields-transport .search-submit { grid-area: cta; }
+
+.search-fields-transport {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "origin"
+        "swap"
+        "dest"
+        "depart"
+        "time"
+        "pax"
+        "cta";
+}
+
+.search-fields-transport.is-round-trip {
+    grid-template-areas:
+        "origin"
+        "swap"
+        "dest"
+        "depart"
+        "ret"
+        "time"
+        "pax"
+        "cta";
+}
+
+.search-fields-hourly {
+    grid-template-columns: 1fr;
 }
 
 .search-errors {
@@ -372,7 +472,7 @@ body {
     border-radius: 6px;
     padding: 5px 7px;
     font-size: 0.68rem;
-    margin-bottom: 5px;
+    margin: 0;
 }
 
 .search-same-place {
@@ -380,13 +480,12 @@ body {
     border: 1px solid #fed7aa;
     border-radius: 6px;
     padding: 6px 8px;
-    margin-bottom: 5px;
 }
 
 .search-same-place p {
     color: #9a3412;
     font-size: 0.68rem;
-    margin-bottom: 5px;
+    margin: 0 0 5px;
 }
 
 .secondary-btn {
@@ -399,24 +498,6 @@ body {
     padding: 5px 8px;
     border-radius: 6px;
     cursor: pointer;
-}
-
-.search-submit {
-    width: 100%;
-    border: none;
-    background: var(--brand-orange);
-    color: #fff;
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: 0.78rem;
-    padding: 7px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.search-submit:hover {
-    background: #c2410c;
 }
 
 /* Quote summary — slim, above form */
@@ -504,23 +585,23 @@ body {
 }
 
 .lets-go-btn {
-    background-color: var(--primary);
+    background-color: transparent;
     color: var(--text-white);
     text-decoration: none;
-    padding: 16px 36px;
+    padding: 12px 28px;
     border-radius: 100px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.55);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     transition: var(--transition);
     display: inline-block;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .lets-go-btn:hover {
-    background-color: #000;
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.12);
+    transform: none;
+    box-shadow: none;
 }
 
 .hero-social {
@@ -531,8 +612,8 @@ body {
 }
 
 .hero-social p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -916,6 +997,12 @@ body {
     background-color: #1ebe57;
 }
 
+.floating-wa.is-suppressed {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 /* FOOTER */
 .main-footer {
     background-color: var(--primary);
@@ -972,7 +1059,11 @@ body {
     }
 
     .search-fields {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
+    }
+
+    .search-submit {
+        width: 100%;
     }
 
     .nav-center {
@@ -1067,6 +1158,7 @@ body {
 
     .search-submit {
         width: 100%;
+        grid-column: 1;
     }
 }
 
@@ -1074,6 +1166,35 @@ body {
     .footer-content {
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .search-fields-transport {
+        grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+        grid-template-areas:
+            "origin swap dest"
+            "depart depart time"
+            "pax pax cta";
+        gap: 12px 10px;
+    }
+
+    .search-fields-transport.is-round-trip {
+        grid-template-areas:
+            "origin swap dest"
+            "depart ret time"
+            "pax pax cta";
+    }
+
+    .search-fields-hourly {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .search-fields-hourly .search-submit {
+        grid-column: 1 / -1;
+    }
+
+    .swap-places {
+        margin: 0;
+        width: 44px;
     }
 }
 
@@ -1087,52 +1208,50 @@ body {
     }
 
     .hero-search {
-        padding: 6px 12px 8px;
-        border-radius: 12px 12px 12px 12px;
-    }
-
-    .search-tabs {
-        gap: 6px;
-        margin-bottom: 6px;
+        padding: 12px 16px 14px;
+        border-radius: 16px;
     }
 
     .search-tab {
-        font-size: 0.72rem;
-        padding: 6px 10px;
-    }
-
-    .trip-type-row {
-        gap: 10px;
-        margin-bottom: 6px;
+        min-height: 40px;
+        font-size: 0.875rem;
     }
 
     .trip-option {
-        font-size: 0.72rem;
+        flex: 0 0 auto;
+        min-width: 140px;
+        font-size: 0.875rem;
     }
 
-    .search-fields {
-        grid-template-columns: repeat(5, 1fr) auto;
-        gap: 8px;
-        align-items: end;
+    .search-fields-transport {
+        grid-template-columns: minmax(140px, 1.2fr) 44px minmax(140px, 1.2fr) minmax(130px, 1fr) minmax(110px, 0.9fr) 88px auto;
+        grid-template-areas:
+            "origin swap dest depart time pax cta";
+        gap: 10px 8px;
     }
 
-    .field > span {
-        font-size: 0.72rem;
+    .search-fields-transport.is-round-trip {
+        grid-template-columns: minmax(140px, 1.2fr) 44px minmax(140px, 1.2fr) minmax(140px, 1fr) minmax(140px, 1fr);
+        grid-template-areas:
+            "origin swap dest depart ret"
+            "time time pax pax cta";
     }
 
-    .field input,
-    .field select {
-        height: 38px;
-        font-size: 0.8rem;
-        padding: 10px 7px 4px;
+    .search-fields-hourly {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 0.9fr) 88px auto;
+    }
+
+    .search-fields-hourly .search-submit {
+        grid-column: auto;
+        width: auto;
+        min-width: 180px;
     }
 
     .search-submit {
         width: auto;
-        min-width: 120px;
-        height: 38px;
-        padding: 0 16px;
-        font-size: 0.82rem;
+        min-width: 180px;
+        height: 50px;
+        font-size: 0.9375rem;
     }
 
     .quote-summary {

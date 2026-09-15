@@ -87,6 +87,7 @@
         <option value="Barranquilla"></option>
         <option value="Santa Marta"></option>
         <option value="Aeropuerto"></option>
+        <option value="Aeropuerto Rafael Núñez"></option>
         <option value="Playa Blanca / Barú"></option>
         <option value="Volcán del Totumo"></option>
         <option value="Sincelejo"></option>
@@ -148,51 +149,55 @@
                                 <span>Ida y vuelta</span>
                             </label>
                         </div>
-                        <div class="search-fields">
-                            <label class="field field-return" hidden>
-                                <input type="date" name="return-date">
-                                <span>Fecha de regreso</span>
-                            </label>
-                            <label class="field">
+                        <div class="search-fields search-fields-transport">
+                            <label class="field field-origin">
+                                <span class="field-label">Origen</span>
                                 <input type="text" name="origin" list="place-suggestions" autocomplete="off" required
-                                    placeholder=" ">
-                                <span>Origen</span>
+                                    placeholder="Cartagena">
                             </label>
-                            <label class="field">
+                            <button type="button" class="swap-places" id="swap-places" aria-label="Intercambiar origen y destino">
+                                <i class="uil uil-exchange" aria-hidden="true"></i>
+                            </button>
+                            <label class="field field-dest">
+                                <span class="field-label">Destino</span>
                                 <input type="text" name="destination" list="place-suggestions" autocomplete="off" required
-                                    placeholder=" ">
-                                <span>Destino</span>
+                                    placeholder="Aeropuerto…">
                             </label>
-                            <label class="field">
-                                <input type="date" name="depart-date" required>
-                                <span>Fecha de ida</span>
+                            <label class="field field-depart">
+                                <span class="field-label">Fecha de ida</span>
+                                <input type="date" name="depart-date" lang="es-CO" required>
                             </label>
-                            <label class="field">
-                                <input type="time" name="depart-time" required>
-                                <span>Hora</span>
+                            <label class="field field-return" hidden>
+                                <span class="field-label">Fecha de regreso</span>
+                                <input type="date" name="return-date" lang="es-CO">
                             </label>
-                            <label class="field">
+                            <label class="field field-time">
+                                <span class="field-label">Hora</span>
+                                <input type="time" name="depart-time" lang="es-CO" required>
+                            </label>
+                            <label class="field field-passengers">
+                                <span class="field-label">Pasajeros</span>
                                 <input type="number" name="passengers" min="1" value="1" required>
-                                <span>Pasajeros</span>
                             </label>
+                            <button type="submit" class="search-submit">Pedir cotización</button>
                         </div>
                         <p class="search-errors" id="errors-transporte" hidden></p>
                         <div class="search-same-place" id="same-place-prompt" hidden>
                             <p>Para un traslado necesitas origen y destino distintos.</p>
                             <button type="button" class="secondary-btn" id="switch-to-hourly">Cambiar a Por horas</button>
                         </div>
-                        <button type="submit" class="search-submit">Buscar / Continuar</button>
                     </form>
 
                     <form id="search-form-hourly" class="search-panel" role="tabpanel" aria-labelledby="tab-por-horas"
                         data-mode="por-horas" hidden>
-                        <div class="search-fields">
+                        <div class="search-fields search-fields-hourly">
                             <label class="field">
+                                <span class="field-label">Lugar de recogida</span>
                                 <input type="text" name="pickup" list="place-suggestions" autocomplete="off" required
-                                    placeholder=" ">
-                                <span>Lugar de recogida</span>
+                                    placeholder="Cartagena">
                             </label>
                             <label class="field">
+                                <span class="field-label">Duración</span>
                                 <select name="duration" required>
                                     <option value="" disabled selected>Selecciona</option>
                                     <option value="1">1 hora</option>
@@ -208,23 +213,22 @@
                                     <option value="11">11 horas</option>
                                     <option value="12">12 horas</option>
                                 </select>
-                                <span>Duración</span>
                             </label>
                             <label class="field">
-                                <input type="date" name="date" required>
-                                <span>Fecha</span>
+                                <span class="field-label">Fecha</span>
+                                <input type="date" name="date" lang="es-CO" required>
                             </label>
                             <label class="field">
-                                <input type="time" name="time" required>
-                                <span>Hora</span>
+                                <span class="field-label">Hora</span>
+                                <input type="time" name="time" lang="es-CO" required>
                             </label>
                             <label class="field">
+                                <span class="field-label">Pasajeros</span>
                                 <input type="number" name="passengers" min="1" value="1" required>
-                                <span>Pasajeros</span>
                             </label>
+                            <button type="submit" class="search-submit">Pedir cotización</button>
                         </div>
                         <p class="search-errors" id="errors-hourly" hidden></p>
-                        <button type="submit" class="search-submit">Buscar / Continuar</button>
                     </form>
                 </div>
             </div>

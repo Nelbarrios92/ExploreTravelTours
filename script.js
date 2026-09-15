@@ -16,6 +16,23 @@ function normalizePlace(value) {
     return (value || '').trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
+const MONTHS_ES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+function formatShortDate(isoDate) {
+    if (!isoDate) return '';
+    const [y, m, d] = isoDate.split('-');
+    return `${parseInt(d, 10)} ${MONTHS_ES[parseInt(m, 10) - 1]}`;
+}
+
+function formatTime12(time24) {
+    if (!time24) return '';
+    const [hStr, mStr] = time24.split(':');
+    let h = parseInt(hStr, 10);
+    const ampm = h >= 12 ? 'p. m.' : 'a. m.';
+    h = h % 12 || 12;
+    return `${h}:${mStr} ${ampm}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuBtn = document.querySelector('.menu-btn');
     const navCenter = document.querySelector('.nav-center');
@@ -188,8 +205,12 @@ function initSearch() {
     const switchToHourlyBtn = document.getElementById('switch-to-hourly');
     const errorsTransporte = document.getElementById('errors-transporte');
     const errorsHourly = document.getElementById('errors-hourly');
+    const transportFields = formTransporte.querySelector('.search-fields-transport');
     const returnField = formTransporte.querySelector('.field-return');
     const returnInput = formTransporte.querySelector('input[name="return-date"]');
+    const originInput = formTransporte.querySelector('input[name="origin"]');
+    const destinationInput = formTransporte.querySelector('input[name="destination"]');
+    const swapPlacesBtn = document.getElementById('swap-places');
     const minDate = todayLocalISO();
 
     formTransporte.querySelectorAll('input[type="date"]').forEach((input) => {
@@ -229,10 +250,23 @@ function initSearch() {
         const isRoundTrip = tripType === 'ida-vuelta';
         returnField.hidden = !isRoundTrip;
         returnInput.required = isRoundTrip;
+        transportFields.classList.toggle('is-round-trip', isRoundTrip);
+        formTransporte.querySelectorAll('.trip-option').forEach((label) => {
+            const input = label.querySelector('input');
+            label.classList.toggle('is-selected', Boolean(input && input.checked));
+        });
         if (!isRoundTrip) {
             returnInput.value = '';
         }
     };
+
+    if (swapPlacesBtn) {
+        swapPlacesBtn.addEventListener('click', () => {
+            const originValue = originInput.value;
+            originInput.value = destinationInput.value;
+            destinationInput.value = originValue;
+        });
+    }
 
     formTransporte.querySelectorAll('input[name="trip-type"]').forEach((radio) => {
         radio.addEventListener('change', updateReturnVisibility);
@@ -306,13 +340,26 @@ function initSearch() {
         samePlacePrompt.hidden = true;
     };
 
+    const initFabSuppression = () => {
+        const fab = document.querySelector('.floating-wa');
+        const heroSearch = document.getElementById('hero-search');
+        if (!fab || !heroSearch || typeof IntersectionObserver === 'undefined') return;
+
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            fab.classList.toggle('is-suppressed', Boolean(entry && entry.isIntersecting));
+        }, { threshold: 0.15 });
+
+        observer.observe(heroSearch);
+    };
+
     formTransporte.addEventListener('submit', (e) => {
         e.preventDefault();
         samePlacePrompt.hidden = true;
 
         const tripType = formTransporte.querySelector('input[name="trip-type"]:checked').value;
-        const origin = formTransporte.querySelector('input[name="origin"]').value.trim();
-        const destination = formTransporte.querySelector('input[name="destination"]').value.trim();
+        const origin = originInput.value.trim();
+        const destination = destinationInput.value.trim();
         const departDate = formTransporte.querySelector('input[name="depart-date"]').value;
         const returnDate = formTransporte.querySelector('input[name="return-date"]').value;
         const departTime = formTransporte.querySelector('input[name="depart-time"]').value;
@@ -348,24 +395,28 @@ function initSearch() {
 
         showErrors(errorsTransporte, []);
 
+        let message = `Hola, quiero cotizar un traslado.\nTipo: ${tripType === 'ida-vuelta' ? 'ida y vuelta' : 'solo ida'}\nOrigen: ${origin}\nDestino: ${destination}\nFecha: ${departDate}\nHora: ${departTime}\nPasajeros: ${passengers}`;
+
+        if (tripType === 'ida-vuelta') {
+            message += `\nFecha de regreso: ${returnDate}\nHora de vuelta: por confirmar con la agencia`;
+        }
+
         const lines = [
             ['Tipo', tripType === 'ida-vuelta' ? 'Ida y vuelta' : 'Solo ida'],
             ['Origen', origin],
             ['Destino', destination],
-            ['Fecha de ida', departDate],
-            ['Hora', departTime],
+            ['Fecha de ida', formatShortDate(departDate)],
+            ['Hora', formatTime12(departTime)],
             ['Pasajeros', String(passengers)]
         ];
 
-        let message = `Hola, quiero cotizar un traslado.\nTipo: ${tripType === 'ida-vuelta' ? 'ida y vuelta' : 'solo ida'}\nOrigen: ${origin}\nDestino: ${destination}\nFecha: ${departDate}\nHora: ${departTime}\nPasajeros: ${passengers}`;
-
         if (tripType === 'ida-vuelta') {
-            lines.push(['Fecha de regreso', returnDate]);
+            lines.push(['Fecha de regreso', formatShortDate(returnDate)]);
             lines.push(['Hora de vuelta', 'Por confirmar con la agencia']);
-            message += `\nFecha de regreso: ${returnDate}\nHora de vuelta: por confirmar con la agencia`;
         }
 
         renderQuote(lines, message, `${origin} ${destination}`);
+        quoteSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
     if (switchToHourlyBtn) {
@@ -416,17 +467,19 @@ function initSearch() {
 
         showErrors(errorsHourly, []);
 
+        const message = `Hola, quiero cotizar un servicio por horas.\nRecogida: ${pickup}\nDuración: ${duration} horas\nFecha: ${date}\nHora: ${time}\nPasajeros: ${passengers}`;
+
         const lines = [
-            ['Modo', 'Por horas'],
-            ['Recogida', pickup],
+            ['Lugar de recogida', pickup],
             ['Duración', `${duration} hora${duration === '1' ? '' : 's'}`],
-            ['Fecha', date],
-            ['Hora', time],
+            ['Fecha', formatShortDate(date)],
+            ['Hora', formatTime12(time)],
             ['Pasajeros', String(passengers)]
         ];
 
-        const message = `Hola, quiero cotizar un servicio por horas.\nRecogida: ${pickup}\nDuración: ${duration} horas\nFecha: ${date}\nHora: ${time}\nPasajeros: ${passengers}`;
-
         renderQuote(lines, message, pickup);
+        quoteSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+
+    initFabSuppression();
 }
