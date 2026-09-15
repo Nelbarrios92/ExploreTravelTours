@@ -500,13 +500,12 @@ body {
     cursor: pointer;
 }
 
-/* Quote summary — slim, above form */
+/* Quote summary — moderate compact (009); not booking-bar 50px */
 .quote-summary {
-    margin-bottom: 6px;
-    padding: 8px 10px;
-    background: #f8fafc;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    margin-bottom: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
 }
 
 .quote-summary[hidden] {
@@ -516,6 +515,7 @@ body {
 .quote-summary h2 {
     font-family: var(--font-serif);
     font-size: 1rem;
+    font-weight: 600;
     color: var(--brand-blue);
     margin-bottom: 8px;
 }
@@ -525,15 +525,17 @@ body {
     grid-template-columns: auto 1fr;
     gap: 4px 12px;
     margin-bottom: 10px;
-    font-size: 0.78rem;
+    font-size: 0.8125rem;
 }
 
 .quote-lines dt {
     font-weight: 600;
-    color: #64748b;
+    color: #334155;
 }
 
 .quote-lines dd {
+    font-size: 0.875rem;
+    font-weight: 500;
     color: var(--primary);
 }
 
@@ -543,13 +545,16 @@ body {
     justify-content: center;
     gap: 6px;
     width: 100%;
+    height: 42px;
+    box-sizing: border-box;
     background: var(--whatsapp-green);
     color: #fff;
     text-decoration: none;
+    font-family: var(--font-sans);
     font-weight: 700;
-    padding: 9px 12px;
-    border-radius: 8px;
-    font-size: 0.82rem;
+    padding: 0 14px;
+    border-radius: 10px;
+    font-size: 0.8125rem;
     transition: var(--transition);
 }
 
@@ -557,8 +562,47 @@ body {
     background: #1ebe57;
 }
 
+.quote-modify {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+    margin-top: 6px;
+    padding: 0 14px;
+    box-sizing: border-box;
+    border: 1px solid var(--brand-blue);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--brand-blue);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    cursor: pointer;
+}
+
+.quote-modify:hover {
+    background: #eff6ff;
+}
+
+#hero-search.is-quoted .search-tabs,
+#hero-search.is-quoted .search-panel,
+#hero-search.is-quoted .search-errors,
+#hero-search.is-quoted .search-same-place {
+    display: none !important;
+}
+
+#hero-search.is-quoted {
+    padding: 8px 12px;
+}
+
+#hero-search.is-quoted .quote-summary {
+    margin-bottom: 0;
+}
+
 .quote-related {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .quote-related[hidden] {
@@ -566,18 +610,56 @@ body {
 }
 
 .quote-related p {
-    font-size: 0.78rem;
-    color: #64748b;
-    margin-bottom: 6px;
+    font-size: 0.8125rem;
+    color: #334155;
+    margin-bottom: 4px;
 }
 
 .quote-related a {
     display: inline-block;
     margin-right: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     color: var(--brand-blue);
     font-weight: 600;
-    font-size: 0.82rem;
+    font-size: 0.8125rem;
+}
+
+@media (min-width: 768px) {
+    .quote-summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        row-gap: 8px;
+        align-items: end;
+    }
+
+    .quote-summary h2,
+    .quote-lines,
+    .quote-related {
+        grid-column: 1 / -1;
+    }
+
+    .quote-summary h2 {
+        margin-bottom: 4px;
+    }
+
+    .quote-related {
+        margin-top: 0;
+    }
+
+    .quote-related p {
+        margin-bottom: 0;
+    }
+
+    .quote-lines {
+        grid-template-columns: auto 1fr auto 1fr;
+        margin-bottom: 0;
+    }
+
+    .quote-wa-btn,
+    .quote-modify {
+        margin-top: 0;
+    }
 }
 
 .hero-secondary {
@@ -1231,10 +1313,21 @@ body {
     }
 
     .search-fields-transport.is-round-trip {
-        grid-template-columns: minmax(140px, 1.2fr) 44px minmax(140px, 1.2fr) minmax(140px, 1fr) minmax(140px, 1fr);
+        grid-template-columns: minmax(96px, 1.05fr) 40px minmax(96px, 1.05fr) minmax(112px, 0.82fr) minmax(112px, 0.82fr) minmax(88px, 0.7fr) 72px minmax(132px, 0.9fr);
         grid-template-areas:
-            "origin swap dest depart ret"
-            "time time pax pax cta";
+            "origin swap dest depart ret time pax cta";
+        gap: 8px 6px;
+    }
+
+    .search-fields-transport.is-round-trip .search-submit {
+        min-width: 132px;
+        padding: 0 12px;
+        width: 100%;
+    }
+
+    .search-fields-transport.is-round-trip .field input {
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     .search-fields-hourly {
@@ -1252,17 +1345,5 @@ body {
         min-width: 180px;
         height: 50px;
         font-size: 0.9375rem;
-    }
-
-    .quote-summary {
-        padding: 10px 14px;
-    }
-
-    .quote-summary h2 {
-        font-size: 1.1rem;
-    }
-
-    .quote-lines {
-        font-size: 0.85rem;
     }
 }

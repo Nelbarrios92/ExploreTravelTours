@@ -201,6 +201,8 @@ function initSearch() {
     const quoteLines = document.getElementById('quote-lines');
     const quoteWaBtn = document.getElementById('quote-wa-btn');
     const quoteRelated = document.getElementById('quote-related');
+    const quoteModifyBtn = document.getElementById('quote-modify');
+    const heroSearch = document.getElementById('hero-search');
     const samePlacePrompt = document.getElementById('same-place-prompt');
     const switchToHourlyBtn = document.getElementById('switch-to-hourly');
     const errorsTransporte = document.getElementById('errors-transporte');
@@ -287,6 +289,7 @@ function initSearch() {
         quoteSummary.hidden = true;
         quoteRelated.hidden = true;
         quoteRelated.innerHTML = '';
+        if (heroSearch) heroSearch.classList.remove('is-quoted');
     };
 
     const relatedSuggestions = (textBlob) => {
@@ -336,13 +339,17 @@ function initSearch() {
         ).join('');
         quoteWaBtn.href = buildWhatsAppUrl(message);
         quoteSummary.hidden = false;
+        if (heroSearch) heroSearch.classList.add('is-quoted');
         renderRelated(relatedSuggestions(relatedText));
         samePlacePrompt.hidden = true;
     };
 
+    if (quoteModifyBtn) {
+        quoteModifyBtn.addEventListener('click', hideQuote);
+    }
+
     const initFabSuppression = () => {
         const fab = document.querySelector('.floating-wa');
-        const heroSearch = document.getElementById('hero-search');
         if (!fab || !heroSearch || typeof IntersectionObserver === 'undefined') return;
 
         const observer = new IntersectionObserver((entries) => {
