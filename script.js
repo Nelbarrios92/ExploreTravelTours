@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            if (!href || href === '#') return;
+            if (!href || href === '#' || !href.startsWith('#')) return;
 
             e.preventDefault();
 
